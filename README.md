@@ -1,18 +1,25 @@
 <h1 align="center" style="position: relative;">
   <br>
-    <img src="./assets/shoppy-x-ray.svg" alt="logo" width="200">
+  ✈️ Airport Theme
   <br>
-  Shopify Skeleton Theme
 </h1>
 
-A minimal, carefully structured Shopify theme designed to help you quickly get started. Designed with modularity, maintainability, and Shopify's best practices in mind.
+A modern, professional Shopify theme inspired by airport and travel aesthetics. Clean design with smooth user experience, perfect for travel, fashion, electronics, and lifestyle brands.
 
 <p align="center">
   <a href="./LICENSE.md"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License"></a>
-  <a href="./actions/workflows/ci.yml"><img alt="CI" src="https://github.com/Shopify/skeleton-theme/actions/workflows/ci.yml/badge.svg"></a>
 </p>
 
-## Getting started
+## ✨ Features
+
+- **Modern Airport-Inspired Design**: Clean, minimalist layout with aviation aesthetics
+- **Responsive Design**: Optimized for all devices and screen sizes  
+- **Fast Performance**: Lightweight code with optimized loading times
+- **Customizable**: Easy-to-use theme customizer with lots of options
+- **SEO Optimized**: Built with SEO best practices
+- **Accessibility**: WCAG compliant and screen reader friendly
+
+## 🚀 Getting started
 
 ### Prerequisites
 
@@ -24,16 +31,6 @@ If you use VS Code:
 
 - [Shopify Liquid VS Code Extension](https://shopify.dev/docs/storefronts/themes/tools/shopify-liquid-vscode) – provides syntax highlighting, linting, inline documentation, and auto-completion specifically designed for Liquid templates
 
-### Clone
-
-Clone this repository using Git or Shopify CLI:
-
-```bash
-git clone git@github.com:Shopify/skeleton-theme.git
-# or
-shopify theme init
-```
-
 ### Preview
 
 Preview this theme using Shopify CLI:
@@ -42,18 +39,34 @@ Preview this theme using Shopify CLI:
 shopify theme dev
 ```
 
-## Theme architecture
+## 🎨 Theme Features
+
+### Design Elements
+- **Clean Typography**: Modern font stack optimized for readability
+- **Smooth Animations**: Subtle micro-interactions for better UX
+- **Color Palette**: Professional blue and gray tones inspired by aviation
+- **Grid System**: Flexible layout system for different content types
+
+### Sections Included
+- **Hero Banner**: Eye-catching homepage banner with CTA
+- **Featured Products**: Showcase your best products
+- **Collections Grid**: Display product categories beautifully
+- **Testimonials**: Customer reviews and social proof
+- **Newsletter**: Email signup with modern styling
+- **Footer**: Comprehensive footer with links and info
+
+## 📁 Theme architecture
 
 ```bash
 .
-├── assets          # Stores static assets (CSS, JS, images, fonts, etc.)
-├── blocks          # Reusable, nestable, customizable UI components
-├── config          # Global theme settings and customization options
-├── layout          # Top-level wrappers for pages (layout templates)
-├── locales         # Translation files for theme internationalization
-├── sections        # Modular full-width page components
-├── snippets        # Reusable Liquid code or HTML fragments
-└── templates       # Templates combining sections to define page structures
+├── assets          # CSS, JS, images, icons, fonts
+├── blocks          # Reusable UI components
+├── config          # Theme settings and configuration
+├── layout          # Page layout templates
+├── locales         # Translation files
+├── sections        # Main content sections
+├── snippets        # Reusable code fragments
+└── templates       # Page templates
 ```
 
 To learn more, refer to the [theme architecture documentation](https://shopify.dev/docs/storefronts/themes/architecture).

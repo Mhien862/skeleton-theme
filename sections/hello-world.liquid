@@ -1,143 +1,411 @@
 {% comment %}
-  Welcome to Shopify theme development!
+  Airport Theme - Hero Section
+  Modern hero banner with aviation aesthetics
 {% endcomment %}
 
-<div class="welcome full-width">
-  <div class="welcome-content">
-    <div>
-      <h1>Hello, World!</h1>
-
-      <p class="welcome-description">
-        The Skeleton theme is a minimal, carefully structured Shopify theme designed to help you quickly get started.
-        Designed with modularity, maintainability, and Shopify's best practices in mind.
-      </p>
-
-      <p class="welcome-description">
-        Themes shape the online store experience for merchants and their customers. Build fast, flexible themes at scale
-        using Liquid, Shopify's theme templating language, along with HTML, CSS, JavaScript, and JSON.
-      </p>
+<section class="hero">
+  <div class="hero-background">
+    {% if section.settings.background_image %}
+      <img 
+        src="{{ section.settings.background_image | img_url: '1920x' }}"
+        alt="{{ section.settings.heading | escape }}"
+        class="hero-image"
+        loading="eager"
+      >
+    {% endif %}
+    <div class="hero-overlay"></div>
+  </div>
+  
+  <div class="hero-content">
+    <div class="hero-container">
+      
+      {% if section.settings.heading %}
+        <h1 class="hero-heading">
+          <span class="hero-heading-main">{{ section.settings.heading }}</span>
+          {% if section.settings.subheading %}
+            <span class="hero-heading-sub">{{ section.settings.subheading }}</span>
+          {% endif %}
+        </h1>
+      {% endif %}
+      
+      {% if section.settings.description %}
+        <p class="hero-description">{{ section.settings.description }}</p>
+      {% endif %}
+      
+      <div class="hero-actions">
+        {% if section.settings.button_text and section.settings.button_link %}
+          <a href="{{ section.settings.button_link }}" class="btn btn-primary hero-button">
+            {{ section.settings.button_text }}
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" class="button-icon">
+              <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+            </svg>
+          </a>
+        {% endif %}
+        
+        {% if section.settings.secondary_button_text and section.settings.secondary_button_link %}
+          <a href="{{ section.settings.secondary_button_link }}" class="btn btn-secondary hero-button">
+            {{ section.settings.secondary_button_text }}
+          </a>
+        {% endif %}
+      </div>
+      
+      {% if section.settings.show_scroll_indicator %}
+        <div class="scroll-indicator">
+          <div class="scroll-line"></div>
+          <div class="scroll-dot"></div>
+        </div>
+      {% endif %}
+      
     </div>
-    <div class="icon">
-      <img src="{{ 'shoppy-x-ray.svg' | asset_url }}" width="300" height="300">
-    </div>
   </div>
-</div>
-
-<div class="highlights">
-  <div class="highlight">
-    <h3>Key Concepts</h3>
-    <p class="highlight-description">
-      Shopify themes are a package of template files, building blocks, and supporting assets. Use these building blocks
-      to create modular, customizable themes.
-    </p>
-    <p>{{ 'Learn more about key concepts' | link_to: 'https://shopify.dev/docs/storefronts/themes/architecture' }}</p>
-  </div>
-
-  <div class="highlight">
-    <h3>Liquid</h3>
-    <p class="highlight-description">
-      The Liquid templating language is the backbone of Shopify themes, and is used to load dynamic content on
-      storefronts. Extend Liquid objects to store and present custom data using metafields.
-    </p>
-    <p>{{ 'View the Liquid reference' | link_to: 'https://shopify.dev/docs/api/liquid' }}</p>
-  </div>
-
-  <div class="highlight">
-    <h3>Best Practices</h3>
-    <p class="highlight-description">
-      To optimize your theme development experience, Shopify has established a set of best practices that you can refer
-      to when developing your theme and setting up your toolchains and processes.
-    </p>
-    <p>{{ 'Follow best practices' | link_to: 'https://shopify.dev/docs/storefronts/themes/best-practices' }}</p>
-  </div>
-</div>
+</section>
 
 {% stylesheet %}
-  .welcome {
-    display: grid;
-    grid-template-columns: var(--content-grid);
-    background-color: #f6f6f7;
-    padding: 72px 0;
-  }
+/* Hero Section */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%);
+}
 
-  .welcome-content {
-    grid-column: 2;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-    width: 100%;
-    padding: 0 24px;
-  }
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
 
-  .welcome-description {
-    max-width: 80ch;
-    line-height: 1.4;
-    margin-top: 1.5rem;
-  }
+.hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
 
-  .icon {
-    width: 300px;
-  }
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(30, 64, 175, 0.8) 0%,
+    rgba(30, 58, 138, 0.6) 50%,
+    rgba(17, 24, 39, 0.4) 100%
+  );
+  z-index: 2;
+}
 
-  .highlights {
-    display: grid;
-    gap: 2rem;
-    grid-template-columns: repeat(3, 1fr);
-    margin-top: 50px;
-  }
+.hero-content {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  padding: var(--spacing-4xl) var(--spacing-md);
+}
 
-  @media (max-width: 1100px) {
-    .highlights {
-      grid-template-columns: 1fr;
-    }
-  }
+.hero-container {
+  max-width: var(--max-width-container);
+  margin: 0 auto;
+  text-align: center;
+}
 
-  .highlight {
-    display: flex;
+/* Hero Typography */
+.hero-heading {
+  margin: 0 0 var(--spacing-xl) 0;
+  color: var(--color-white);
+}
+
+.hero-heading-main {
+  display: block;
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  letter-spacing: -0.02em;
+  margin-bottom: var(--spacing-sm);
+  animation: heroSlideUp 1s ease-out;
+}
+
+.hero-heading-sub {
+  display: block;
+  font-size: clamp(1.25rem, 4vw, 2rem);
+  font-weight: var(--font-weight-normal);
+  color: var(--color-gray-200);
+  animation: heroSlideUp 1s ease-out 0.2s both;
+}
+
+.hero-description {
+  font-size: var(--font-size-xl);
+  color: var(--color-gray-100);
+  max-width: 600px;
+  margin: 0 auto var(--spacing-2xl) auto;
+  line-height: var(--line-height-relaxed);
+  animation: heroSlideUp 1s ease-out 0.4s both;
+}
+
+/* Hero Actions */
+.hero-actions {
+  display: flex;
+  gap: var(--spacing-lg);
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: var(--spacing-4xl);
+  animation: heroSlideUp 1s ease-out 0.6s both;
+}
+
+.hero-button {
+  padding: var(--spacing-md) var(--spacing-xl);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  border-radius: var(--border-radius-xl);
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.hero-button:hover::before {
+  left: 100%;
+}
+
+.hero-button .button-icon {
+  margin-left: var(--spacing-sm);
+  transition: transform var(--transition-fast);
+}
+
+.hero-button:hover .button-icon {
+  transform: translateX(4px);
+}
+
+.btn-primary.hero-button {
+  background: linear-gradient(135deg, var(--color-secondary), #f59e0b);
+  border: none;
+  box-shadow: 0 8px 32px rgba(245, 158, 11, 0.3);
+}
+
+.btn-primary.hero-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(245, 158, 11, 0.4);
+}
+
+.btn-secondary.hero-button {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: var(--color-white);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.btn-secondary.hero-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+/* Scroll Indicator */
+.scroll-indicator {
+  position: absolute;
+  bottom: var(--spacing-2xl);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--color-gray-300);
+  animation: heroSlideUp 1s ease-out 0.8s both;
+}
+
+.scroll-line {
+  width: 2px;
+  height: 60px;
+  background: linear-gradient(to bottom, transparent, var(--color-gray-300));
+  margin-bottom: var(--spacing-sm);
+}
+
+.scroll-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--color-gray-300);
+  animation: scrollBounce 2s infinite;
+}
+
+/* Animations */
+@keyframes heroSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scrollBounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Floating Elements Animation */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 20%;
+  left: 10%;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: float 6s ease-in-out infinite;
+  z-index: 2;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 30%;
+  right: 15%;
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: float 8s ease-in-out infinite reverse;
+  z-index: 2;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-20px) rotate(5deg);
+  }
+  66% {
+    transform: translateY(10px) rotate(-5deg);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero {
+    min-height: 90vh;
+  }
+  
+  .hero-content {
+    padding: var(--spacing-2xl) var(--spacing-md);
+  }
+  
+  .hero-actions {
     flex-direction: column;
-    height: 100%;
-    padding: 24px;
-    border-radius: 8px;
-    background-color: #eef3ff;
-    color: rgb(92, 95, 98);
-    line-height: 1.4;
+    gap: var(--spacing-md);
   }
+  
+  .hero-button {
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .scroll-indicator {
+    bottom: var(--spacing-lg);
+  }
+}
 
-  .highlight > * + * {
-    margin-top: 1rem;
+@media (max-width: 480px) {
+  .hero-description {
+    font-size: var(--font-size-lg);
   }
-
-  .highlight h3 {
-    font-size: 1rem;
-    color: rgb(32, 34, 35);
+  
+  .hero-button {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    font-size: var(--font-size-base);
   }
-
-  .highlight-description {
-    flex: 1 1;
-  }
-
-  .highlight a {
-    display: flex;
-    width: fit-content;
-    background-color: rgb(250, 251, 251);
-    box-shadow: rgba(0, 0, 0, 0.2) 0px -3px 0px 0px inset, rgba(255, 255, 255, 0.9) 0px 2px 0px 0px inset;
-    border: 1px solid rgb(140, 145, 150);
-    border-radius: 4px;
-    color: rgb(92, 95, 98);
-    padding: 3px 10px 5px;
-    text-decoration: none;
-  }
+}
 {% endstylesheet %}
 
 {% schema %}
 {
-  "name": "Hello World",
-  "settings": [],
+  "name": "Hero Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Welcome to Airport"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Your journey begins here"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Discover our premium collection designed for the modern traveler. Quality, style, and functionality in perfect harmony."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Primary button text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_text",
+      "label": "Secondary button text",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "secondary_button_link",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_scroll_indicator",
+      "label": "Show scroll indicator",
+      "default": true
+    }
+  ],
   "presets": [
     {
-      "name": "Hello World Template",
-      "category": "Demo"
+      "name": "Hero Banner",
+      "category": "Header"
     }
   ]
 }

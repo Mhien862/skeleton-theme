@@ -1,0 +1,788 @@
+{% comment %}
+  Airport Theme - Contact Section
+  Modern contact page with form and information
+{% endcomment %}
+
+<section class="contact-page">
+  <div class="container">
+    
+    <!-- Contact Header -->
+    <div class="contact-header">
+      <h1 class="contact-title">{{ section.settings.title | default: 'Get in Touch' }}</h1>
+      {% if section.settings.description %}
+        <p class="contact-description">{{ section.settings.description }}</p>
+      {% endif %}
+    </div>
+    
+    <div class="contact-content">
+      
+      <!-- Contact Form -->
+      <div class="contact-form-section">
+        <div class="form-container">
+          <h2 class="form-title">Send us a Message</h2>
+          <p class="form-subtitle">We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+          
+          {% form 'contact', class: 'contact-form' %}
+            {% if form.posted_successfully? %}
+              <div class="form-success">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <h3>Thank you for your message!</h3>
+                <p>We've received your inquiry and will get back to you within 24 hours.</p>
+              </div>
+            {% endif %}
+            
+            {% if form.errors %}
+              <div class="form-errors">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                </svg>
+                <h3>Please fix the following errors:</h3>
+                <ul>
+                  {% for error in form.errors %}
+                    <li>{{ error.first | capitalize }} {{ error.last }}</li>
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endif %}
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="contact-name" class="form-label">
+                  Name <span class="required">*</span>
+                </label>
+                <input 
+                  type="text" 
+                  id="contact-name" 
+                  name="contact[name]" 
+                  class="form-input" 
+                  value="{{ form.name }}"
+                  required
+                  aria-describedby="name-error"
+                >
+                {% if form.errors contains 'name' %}
+                  <span id="name-error" class="field-error">{{ form.errors.name }}</span>
+                {% endif %}
+              </div>
+              
+              <div class="form-group">
+                <label for="contact-email" class="form-label">
+                  Email <span class="required">*</span>
+                </label>
+                <input 
+                  type="email" 
+                  id="contact-email" 
+                  name="contact[email]" 
+                  class="form-input" 
+                  value="{{ form.email }}"
+                  required
+                  aria-describedby="email-error"
+                >
+                {% if form.errors contains 'email' %}
+                  <span id="email-error" class="field-error">{{ form.errors.email }}</span>
+                {% endif %}
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="contact-phone" class="form-label">Phone</label>
+              <input 
+                type="tel" 
+                id="contact-phone" 
+                name="contact[phone]" 
+                class="form-input" 
+                value="{{ form.phone }}"
+              >
+            </div>
+            
+            <div class="form-group">
+              <label for="contact-subject" class="form-label">
+                Subject <span class="required">*</span>
+              </label>
+              <select id="contact-subject" name="contact[subject]" class="form-select" required>
+                <option value="">Select a subject</option>
+                <option value="General Inquiry" {% if form.subject == "General Inquiry" %}selected{% endif %}>General Inquiry</option>
+                <option value="Product Question" {% if form.subject == "Product Question" %}selected{% endif %}>Product Question</option>
+                <option value="Order Support" {% if form.subject == "Order Support" %}selected{% endif %}>Order Support</option>
+                <option value="Technical Support" {% if form.subject == "Technical Support" %}selected{% endif %}>Technical Support</option>
+                <option value="Partnership" {% if form.subject == "Partnership" %}selected{% endif %}>Partnership</option>
+                <option value="Other" {% if form.subject == "Other" %}selected{% endif %}>Other</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="contact-message" class="form-label">
+                Message <span class="required">*</span>
+              </label>
+              <textarea 
+                id="contact-message" 
+                name="contact[body]" 
+                class="form-textarea" 
+                rows="6" 
+                required
+                placeholder="Tell us how we can help you..."
+                aria-describedby="message-error"
+              >{{ form.body }}</textarea>
+              {% if form.errors contains 'body' %}
+                <span id="message-error" class="field-error">{{ form.errors.body }}</span>
+              {% endif %}
+            </div>
+            
+            <button type="submit" class="submit-btn">
+              <span class="btn-text">Send Message</span>
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" class="btn-icon">
+                <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"/>
+              </svg>
+            </button>
+            
+          {% endform %}
+        </div>
+      </div>
+      
+      <!-- Contact Information -->
+      <div class="contact-info-section">
+        
+        <!-- Contact Details -->
+        <div class="contact-info-card">
+          <h3 class="info-title">Contact Information</h3>
+          <p class="info-subtitle">Get in touch with us through any of these channels</p>
+          
+          <div class="contact-details">
+            {% if section.settings.phone %}
+              <div class="contact-detail">
+                <div class="detail-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/>
+                  </svg>
+                </div>
+                <div class="detail-content">
+                  <span class="detail-label">Phone</span>
+                  <a href="tel:{{ section.settings.phone }}" class="detail-value">{{ section.settings.phone }}</a>
+                </div>
+              </div>
+            {% endif %}
+            
+            {% if section.settings.email %}
+              <div class="contact-detail">
+                <div class="detail-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                  </svg>
+                </div>
+                <div class="detail-content">
+                  <span class="detail-label">Email</span>
+                  <a href="mailto:{{ section.settings.email }}" class="detail-value">{{ section.settings.email }}</a>
+                </div>
+              </div>
+            {% endif %}
+            
+            {% if section.settings.address %}
+              <div class="contact-detail">
+                <div class="detail-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                  </svg>
+                </div>
+                <div class="detail-content">
+                  <span class="detail-label">Address</span>
+                  <span class="detail-value">{{ section.settings.address }}</span>
+                </div>
+              </div>
+            {% endif %}
+            
+            {% if section.settings.hours %}
+              <div class="contact-detail">
+                <div class="detail-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M16.2,16.2L11,13V7H12.5V12.2L17,14.9L16.2,16.2Z"/>
+                  </svg>
+                </div>
+                <div class="detail-content">
+                  <span class="detail-label">Business Hours</span>
+                  <span class="detail-value">{{ section.settings.hours }}</span>
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+        
+        <!-- FAQ Section -->
+        {% if section.blocks.size > 0 %}
+          <div class="faq-section">
+            <h3 class="faq-title">Frequently Asked Questions</h3>
+            <div class="faq-list">
+              {% for block in section.blocks %}
+                <div class="faq-item" {{ block.shopify_attributes }}>
+                  <button type="button" class="faq-question" aria-expanded="false">
+                    <span>{{ block.settings.question }}</span>
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" class="faq-icon">
+                      <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                    </svg>
+                  </button>
+                  <div class="faq-answer">
+                    <p>{{ block.settings.answer }}</p>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+        
+      </div>
+      
+    </div>
+    
+  </div>
+</section>
+
+{% stylesheet %}
+/* Contact Page Styles */
+.contact-page {
+  padding: var(--spacing-4xl) 0;
+}
+
+/* Contact Header */
+.contact-header {
+  text-align: center;
+  margin-bottom: var(--spacing-4xl);
+}
+
+.contact-title {
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-lg);
+  color: var(--color-text-primary);
+}
+
+.contact-description {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: var(--line-height-relaxed);
+}
+
+/* Contact Content */
+.contact-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--spacing-4xl);
+  align-items: start;
+}
+
+/* Contact Form Section */
+.contact-form-section {
+  background-color: var(--color-bg-secondary);
+  border-radius: var(--border-radius-xl);
+  padding: var(--spacing-3xl);
+}
+
+.form-title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-sm);
+  color: var(--color-text-primary);
+}
+
+.form-subtitle {
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-2xl);
+  line-height: var(--line-height-relaxed);
+}
+
+/* Form Messages */
+.form-success,
+.form-errors {
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius-lg);
+  margin-bottom: var(--spacing-xl);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+}
+
+.form-success {
+  background-color: #d1fae5;
+  border: 1px solid #10b981;
+  color: #065f46;
+}
+
+.form-errors {
+  background-color: #fee2e2;
+  border: 1px solid #ef4444;
+  color: #991b1b;
+}
+
+.form-success svg,
+.form-errors svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.form-success h3,
+.form-errors h3 {
+  margin: 0 0 var(--spacing-sm) 0;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+}
+
+.form-success p,
+.form-errors ul {
+  margin: 0;
+}
+
+.form-errors ul {
+  padding-left: var(--spacing-lg);
+}
+
+/* Form Styles */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-lg);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.form-label {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}
+
+.required {
+  color: #ef4444;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  padding: var(--spacing-md);
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-base);
+  transition: all var(--transition-fast);
+  background-color: var(--color-white);
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.field-error {
+  font-size: var(--font-size-sm);
+  color: #ef4444;
+  margin-top: var(--spacing-xs);
+}
+
+/* Submit Button */
+.submit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-xl);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+  color: var(--color-white);
+  border: none;
+  border-radius: var(--border-radius-lg);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+}
+
+.btn-icon {
+  transition: transform var(--transition-fast);
+}
+
+.submit-btn:hover .btn-icon {
+  transform: translateX(4px);
+}
+
+/* Contact Info Section */
+.contact-info-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+.contact-info-card {
+  background-color: var(--color-white);
+  border-radius: var(--border-radius-xl);
+  padding: var(--spacing-2xl);
+  box-shadow: var(--shadow-lg);
+}
+
+.info-title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-sm);
+  color: var(--color-text-primary);
+}
+
+.info-subtitle {
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-xl);
+  line-height: var(--line-height-relaxed);
+}
+
+/* Contact Details */
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.contact-detail {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-lg);
+  transition: background-color var(--transition-fast);
+}
+
+.contact-detail:hover {
+  background-color: var(--color-bg-secondary);
+}
+
+.detail-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+  color: var(--color-white);
+  border-radius: var(--border-radius-lg);
+  flex-shrink: 0;
+}
+
+.detail-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.detail-label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.detail-value {
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.detail-value:hover {
+  color: var(--color-primary);
+}
+
+/* FAQ Section */
+.faq-section {
+  background-color: var(--color-white);
+  border-radius: var(--border-radius-xl);
+  padding: var(--spacing-2xl);
+  box-shadow: var(--shadow-lg);
+}
+
+.faq-title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-xl);
+  color: var(--color-text-primary);
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.faq-item {
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  transition: border-color var(--transition-fast);
+}
+
+.faq-item:hover {
+  border-color: var(--color-primary);
+}
+
+.faq-question {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-lg);
+  background: none;
+  border: none;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  text-align: left;
+  transition: background-color var(--transition-fast);
+}
+
+.faq-question:hover {
+  background-color: var(--color-bg-secondary);
+}
+
+.faq-icon {
+  transition: transform var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.faq-question[aria-expanded="true"] .faq-icon {
+  transform: rotate(180deg);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: all var(--transition-normal);
+}
+
+.faq-item.active .faq-answer {
+  max-height: 200px;
+  padding: 0 var(--spacing-lg) var(--spacing-lg) var(--spacing-lg);
+}
+
+.faq-answer p {
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .contact-content {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-2xl);
+  }
+  
+  .contact-info-section {
+    order: -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-page {
+    padding: var(--spacing-2xl) 0;
+  }
+  
+  .contact-header {
+    margin-bottom: var(--spacing-2xl);
+  }
+  
+  .contact-title {
+    font-size: var(--font-size-2xl);
+  }
+  
+  .contact-form-section {
+    padding: var(--spacing-xl);
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+  
+  .contact-info-card,
+  .faq-section {
+    padding: var(--spacing-lg);
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-form-section {
+    padding: var(--spacing-lg);
+  }
+  
+  .contact-info-card,
+  .faq-section {
+    padding: var(--spacing-md);
+  }
+  
+  .detail-icon {
+    width: 40px;
+    height: 40px;
+  }
+}
+{% endstylesheet %}
+
+{% javascript %}
+document.addEventListener('DOMContentLoaded', function() {
+  // FAQ functionality
+  const faqQuestions = document.querySelectorAll('.faq-question');
+  
+  faqQuestions.forEach(question => {
+    question.addEventListener('click', function() {
+      const faqItem = this.closest('.faq-item');
+      const isExpanded = this.getAttribute('aria-expanded') === 'true';
+      
+      // Close all other FAQ items
+      faqQuestions.forEach(q => {
+        q.setAttribute('aria-expanded', 'false');
+        q.closest('.faq-item').classList.remove('active');
+      });
+      
+      // Toggle current FAQ item
+      if (!isExpanded) {
+        this.setAttribute('aria-expanded', 'true');
+        faqItem.classList.add('active');
+      }
+    });
+  });
+  
+  // Form validation and enhancement
+  const contactForm = document.querySelector('.contact-form');
+  const submitBtn = document.querySelector('.submit-btn');
+  
+  if (contactForm && submitBtn) {
+    contactForm.addEventListener('submit', function(e) {
+      const btnText = submitBtn.querySelector('.btn-text');
+      const btnIcon = submitBtn.querySelector('.btn-icon');
+      
+      // Show loading state
+      btnText.textContent = 'Sending...';
+      btnIcon.innerHTML = '<circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" fill="none" stroke-dasharray="15" stroke-dashoffset="15"><animate attributeName="stroke-dashoffset" dur="1s" values="15;0" repeatCount="indefinite"/></circle>';
+      submitBtn.disabled = true;
+    });
+  }
+  
+  // Form field enhancements
+  const formInputs = document.querySelectorAll('.form-input, .form-select, .form-textarea');
+  
+  formInputs.forEach(input => {
+    // Remove error styling on focus
+    input.addEventListener('focus', function() {
+      const fieldError = this.parentNode.querySelector('.field-error');
+      if (fieldError) {
+        fieldError.style.display = 'none';
+      }
+    });
+    
+    // Add floating label effect
+    input.addEventListener('input', function() {
+      if (this.value) {
+        this.classList.add('has-value');
+      } else {
+        this.classList.remove('has-value');
+      }
+    });
+    
+    // Initialize floating label state
+    if (input.value) {
+      input.classList.add('has-value');
+    }
+  });
+});
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Contact",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Page title",
+      "default": "Get in Touch"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Page description",
+      "default": "We'd love to hear from you. Get in touch with us for any questions, feedback, or support needs."
+    },
+    {
+      "type": "header",
+      "content": "Contact Information"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Phone number"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Email address"
+    },
+    {
+      "type": "textarea",
+      "id": "address",
+      "label": "Address"
+    },
+    {
+      "type": "text",
+      "id": "hours",
+      "label": "Business hours",
+      "default": "Monday - Friday: 9:00 AM - 6:00 PM"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Answer"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact",
+      "category": "Contact"
+    }
+  ]
+}
+{% endschema %} 

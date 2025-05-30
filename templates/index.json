@@ -9,12 +9,32 @@
  */
 {
   "sections": {
-    "main": {
+    "hero": {
       "type": "hello-world",
-      "settings": {}
+      "settings": {
+        "heading": "Welcome to Airport",
+        "subheading": "Your journey begins here",
+        "description": "Discover our premium collection designed for the modern traveler. Quality, style, and functionality in perfect harmony.",
+        "button_text": "Shop Now",
+        "button_link": "/collections/all",
+        "secondary_button_text": "Learn More",
+        "secondary_button_link": "/pages/about",
+        "show_scroll_indicator": true
+      }
+    },
+    "featured-products": {
+      "type": "product",
+      "settings": {
+        "heading": "Featured Products",
+        "description": "Discover our most popular products, carefully selected for quality and style.",
+        "products_to_show": 8,
+        "show_rating": true,
+        "show_view_all": true
+      }
     }
   },
   "order": [
-    "main"
+    "hero",
+    "featured-products"
   ]
 }
